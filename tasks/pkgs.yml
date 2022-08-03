@@ -1,0 +1,9 @@
+- name: Install packages
+  become: true
+  apt:
+    name: ["exa", "zoxide", "ripgrep", "fzf"]
+  tags:
+    - pkg
+- name: Update apt cache
+  become: true
+  shell: sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -y

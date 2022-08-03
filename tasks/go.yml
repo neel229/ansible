@@ -1,0 +1,16 @@
+# Install Go
+- name: Pull update-golang script
+  ansible.builtin.git:
+    repo: "https://github.com/udhos/update-golang"
+    dest: "~/.config/go-script"
+  tags:
+    - go
+- name: Make it executable
+  shell: chmod +x ~/.config/go-script/update-golang.sh
+  tags:
+    - go
+- name: Run script to install go
+  become: true
+  shell: sudo ~/.config/go-script/update-golang.sh
+  tags:
+    - go

@@ -1,0 +1,41 @@
+# Setup repository
+- name: Remove existing docker version
+  apt:
+    name: [ "docker", "docker-engine", "docker.io", "containerd", "runc"]
+    state: absent
+- name: Install pre-req packages
+  apt:
+    name: ["ca-certificates", "curl", "gnupg", "lsb-release"]
+    state: present
+- name: Create keyring directory
+  shell:
+    cmd: sudo mkdir -p /etc/apt/keyrings
+- name: Add GPG keyring
+  shell:
+    cmd: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+- name: Setup repository
+  shell:
+    cmd: echo \
+         "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+         $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Install engine
+- name: Update packages
+  become: true
+  shell: sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -y
+- name: Install engine
+  apt:
+    name: ["docker-ce", "docker-ce-cli", "containerd.io", "docker-compose-plugin"]
+- name: Start docker service
+  become: true
+  shell: sudo service docker start
+- name: Create docker group
+  become: true
+  shell: sudo groupadd docker
+- name: Add user to docker group
+  become: true
+  shell: sudo usermod -aG docker $USER
+- name: Activate changes to group
+  shell: newgrp docker
+- name: Verify installation
+  shell: docker run hello-world

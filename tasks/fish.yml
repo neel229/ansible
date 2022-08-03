@@ -1,0 +1,18 @@
+# Setup fish shell
+- name: Get fish ppa
+  apt_repository: repo='ppa:fish-shell/release-3'
+  tags:
+    - pkg
+- name: Update repo cache
+  become: true
+  shell: sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -y
+  tags:
+    - pkg
+- name: Install fish
+  apt: name=fish
+  tags:
+    - pkg
+- name: Change default shell to fish
+  shell: chsh -s `which fish`
+  tags:
+    - pkg

@@ -1,0 +1,15 @@
+- name: Email
+  git_config::
+    name: user.email
+    scope: global
+    value: "device.neel@gmail.com"
+- name: Username
+  git_config::
+    name: user.name
+    scope: global
+    value: "neel229"
+- name: Default editor
+  git_config::
+    name: core.editor
+    scope: global
+    value: "vim"
