@@ -1,15 +1,21 @@
 - name: Email
-  git_config::
+  git_config:
     name: user.email
     scope: global
     value: "device.neel@gmail.com"
+  tags:
+    - git
 - name: Username
-  git_config::
+  git_config:
     name: user.name
     scope: global
     value: "neel229"
+  tags:
+    - git
 - name: Default editor
-  git_config::
+  git_config:
     name: core.editor
     scope: global
     value: "vim"
+  tags:
+    - git

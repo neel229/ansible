@@ -10,7 +10,10 @@
   tags:
     - go
 - name: Run script to install go
-  become: true
-  shell: sudo ~/.config/go-script/update-golang.sh
+  become: yes
+  shell: ~/.config/go-script/update-golang.sh
   tags:
     - go
+- name: Install golangci-lint
+  become: yes
+  shell: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b /usr/local/bin
