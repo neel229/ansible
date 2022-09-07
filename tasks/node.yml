@@ -1,0 +1,8 @@
+- name: install volta
+  shell: curl https://get.volta.sh | bash
+- name: source fish profile
+  shell: /usr/bin/fish -c source ~/.config/fish/config.fish
+- name: install node
+  shell: volta install node
+- name: install yarn
+  shell: volta install yarn
